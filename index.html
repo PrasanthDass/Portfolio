@@ -35,9 +35,6 @@
               <a href="#work" class="nav_link active">Work</a>
             </li>
             <li class="nav_items">
-              <a href="#resume" class="nav_link active">Resume</a>
-            </li>
-            <li class="nav_items">
               <a href="#contact" class="nav_link active">Contact</a>
             </li>
           </ul>
@@ -61,6 +58,11 @@
         </div>
 
         <div class="home_social">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=prasanthdass02@gmail.com" 
+            class="home_social-icon" 
+            data-aos="fade-down"
+            ><i class='bx bxl-gmail'></i></a>
+        <div class="home_social">
           <a href="https://www.facebook.com/prasanth.dass.9699?mibextid=ZbWKwL" class="home_social-icon" data-aos="fade-down"
             ><i class="bx bxl-facebook-circle"></i
           ></a>
@@ -70,13 +72,6 @@
             data-aos="fade-down"
             data-aos-delay="250"
             ><i class="bx bxl-instagram"></i
-          ></a>
-          <a
-            href="#"
-            class="home_social-icon"
-            data-aos="fade-down"
-            data-aos-delay="300"
-            ><i class="bx bxl-twitter"></i
           ></a>
           <a
             href="https://github.com/PrasanthDass/Portfolio.git"
@@ -697,6 +692,7 @@
                 environment to improve me as an individual.
                 
             </p>
+            <a href="./assets/img/Prasanth D.pdf" download="Prasanth D.pdf" class="resume_button button">Download Resume</a>
           </div>
         </div>
       </section>
@@ -1025,21 +1021,16 @@
           </div>
         </div>
       </section>
-
-      <!-- RESUME SECTION -->
-      <select name="resume section" id="resume">
-        <h2 class="section-title" data-aos="fade-down">Resume</h2>
-        
-      </select>
       <!-- CONTACT SECTION -->
 
       <section class="contact section" id="contact">
         <h2 class="section-title" data-aos="fade-down">Contact</h2>
 
         <div class="contact_container bd_grid">
-          <form action="#" class="contact_form">
+          <form name ="submit-to-google-sheet" class="contact_form">
             <input
               type="text"
+              name="Name"
               placeholder="Name"
               class="control_input"
               data-aos="fade-right"
@@ -1047,13 +1038,14 @@
             />
             <input
               type="mail"
+              name="Email"
               placeholder="Email"
               class="control_input"
               data-aos="fade-right"
               data-aos-delay="300"
             />
             <textarea
-              name=""
+              name="Message"
               id=""
               cols="0"
               rows="10"
@@ -1061,14 +1053,8 @@
               data-aos="fade-right"
               data-aos-delay="400"
             ></textarea>
-
-            <input
-              type="button"
-              value="Send"
-              class="control_button button"
-              data-aos="fade-right"
-              data-aos-delay="450"
-            />
+            <button class="control_button button">Send Message</button>
+            <span id="msg"></span>
           </form>
         </div>
       </section>
@@ -1078,6 +1064,12 @@
         <p class="footer_title" data-aos="fade-down">Prasanth Dass</p>
 
         <div class="footer_socials">
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=prasanthdass02@gmail.com"
+            class="footer_icon"
+            data-aos="fade-down"
+            data-aos-delay="250"
+            ><i class='bx bxl-gmail'></i></a>
           <a
             href="https://www.facebook.com/prasanth.dass.9699?mibextid=ZbWKwL"
             class="footer_icon"
@@ -1091,13 +1083,6 @@
             data-aos="fade-down"
             data-aos-delay="350"
             ><i class="bx bxl-instagram"></i
-          ></a>
-          <a
-            href="#"
-            class="footer_icon"
-            data-aos="fade-down"
-            data-aos-delay="450"
-            ><i class="bx bxl-twitter"></i
           ></a>
           <a
             href="https://github.com/PrasanthDass/Portfolio.git"
@@ -1123,7 +1108,25 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyQvK8STxsuyRTQW6Zklan0E7o6d_kplMusdrA0EMQvSN9_zbLJtT2-y-oHDmx0U8MEJA/exec'
+      const form = document.forms['submit-to-google-sheet']
+      const msg = document.getElementById("msg")
 
+
+      form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+              .then(response => {
+                  msg.innerHTML = "Thanks for the response!! I will get back to you shortly"
+                  setTimeout(function () {
+                      msg.innerHTML = ""
+                  }, 5000)
+                  form.reset()
+              })
+              .catch(error => console.error('Error!', error.message))
+      })
+  </script>
     <script>
       AOS.init({
         duration: 1200,
